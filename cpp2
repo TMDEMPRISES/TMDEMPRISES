@@ -1,0 +1,202 @@
+#include <stdio.h>
+#include <conio.h>
+#include <graphics.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <time.h>
+
+#define CLOUD_COUNT 5
+
+// Khai báo mảng vị trí đám mây
+long long cloud_positions[CLOUD_COUNT][2];
+
+// Hàm vẽ mặt trời
+void sun() {
+    setcolor(WHITE);
+    setfillstyle(SOLID_FILL, YELLOW);
+    pieslice(550, 60, 0, 360, 50);
+}
+
+// Hàm vẽ đám mây
+void may() {
+    setcolor(WHITE);
+    setfillstyle(SOLID_FILL, WHITE);
+    for (int k = 0; k < CLOUD_COUNT; k++) {
+        fillellipse(cloud_positions[k][0], cloud_positions[k][1], 50, 40);
+        fillellipse(cloud_positions[k][0] + 50, cloud_positions[k][1], 40, 30);
+        fillellipse(cloud_positions[k][0] - 50, cloud_positions[k][1], 40, 30);
+        fillellipse(cloud_positions[k][0] + 30, cloud_positions[k][1] - 20, 40, 30);
+        fillellipse(cloud_positions[k][0] - 30, cloud_positions[k][1] - 20, 40, 30);
+    }
+}
+// Hàm vẽ núi
+void nui() {
+    setcolor(GREEN);
+    setfillstyle(SOLID_FILL, DARKGRAY);
+    int mountain1[] = {0, 300, 200, 150, 400, 300, 0, 300};
+    fillpoly(4, mountain1);
+    
+    int mountain2[] = {300, 300, 500, 100, 700, 300, 300, 300};
+    fillpoly(4, mountain2);
+}
+// Hàm vẽ chim
+void drawBird(int x, int y) {
+    setcolor(BLACK);
+    setfillstyle(SOLID_FILL, BLACK);
+    
+    // Vẽ thân chim
+    ellipse(x, y, 0, 360, 50, 20);
+    floodfill(x, y, BLACK);
+    
+    // Vẽ cánh chim (hình tam giác)
+    int wingX1 = x + 30;
+    int wingY1 = y - 20;
+    int wingX2 = x + 30;
+    int wingY2 = y + 20;
+    int wingX3 = x + 60;
+    int wingY3 = y;
+
+    setfillstyle(SOLID_FILL, BLACK);
+    floodfill(wingX1, wingY1, BLACK);
+    floodfill(wingX2, wingY2, BLACK);
+    
+    // Vẽ đuôi chim
+    line(x - 50, y, x - 70, y + 20);
+    line(x - 50, y, x - 70, y - 20);
+    line(x - 70, y - 20, x - 70, y + 20);
+    
+    // Vẽ đầu chim
+    setcolor(BLACK);
+    circle(x + 70, y, 10); // Vẽ đầu chim
+    floodfill(x + 70, y, BLACK);
+    
+    // Vẽ mỏ chim
+    setcolor(BLACK);
+    line(x + 70, y, x + 85, y - 5);
+    line(x + 70, y, x + 85, y + 5);
+}
+
+void moveBird(int &x) {
+    // Cập nhật vị trí x để tạo hiệu ứng bay
+    x += 5; // Di chuyển theo chiều ngang
+    
+    // Reset x khi chim ra khỏi màn hình
+    if (x > getmaxx()) {
+        x = 0;
+    }
+}
+// Hàm vẽ đường
+void duong() {
+    setfillstyle(1, LIGHTGREEN);
+    bar(0, 450, 800, 500);
+    sector(200, 350, 0, 180, 200, 100);
+    sector(500, 350, 0, 180, 200, 100);
+
+    setfillstyle(1, LIGHTGRAY);
+    bar(0, 350, 800, 450);
+    setlinestyle(0, 4, 2);
+    line(0, 360, 800, 360);
+    line(0, 440, 800, 440);
+    for (long long i = 50; i <= 550; i += 100) {
+        line(i, 400, i + 50, 400);
+    }
+}
+
+int main() {
+    int driver = 0, mode = 0, maloi;
+    initgraph(&driver, &mode, (char*)"");
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\Turboc3\\BGI");
+    int x1 = 0, y1 = 240; // Chim 1
+    int x2 = 200, y2 = 240; // Chim 2
+    if ((maloi = graphresult()) != 0) {
+        printf("Không thể khởi động đồ họa \n");
+        printf("Mã lỗi : %d \n%s ", maloi, grapherrormsg(maloi));
+        getch();
+        exit(1);
+    }
+
+    srand(time(NULL)); // Khởi tạo seed cho random
+    // Khởi tạo vị trí đám mây ngẫu nhiên
+    for (int k = 0; k < CLOUD_COUNT; k++) {
+        cloud_positions[k][0] = 100 + rand() % 600; // Vị trí X
+        cloud_positions[k][1] = 70 + rand() % 100;  // Vị trí Y
+    }
+
+    long long i = 0, j = 0, m = 1, page = 0;
+    long long max_width = getmaxx(); // Lấy giới hạn chiều rộng của màn hình
+
+    while (1) {
+        setactivepage(page);
+        cleardevice(); // Xóa trang active trước khi vẽ
+
+        setbkcolor(LIGHTBLUE);
+        sun();
+        may();
+        duong();
+        nui();
+        // Vẽ hai con chim
+        drawBird(x1, y1);
+        drawBird(x2, y2);
+        
+        // Cập nhật vị trí của từng chim
+        moveBird(x1);
+        moveBird(x2);
+
+        // Vẽ nhân vật chạy
+        setcolor(WHITE);
+        circle(50 + i, 300 + j, 15);  // Đầu
+        line(50 + i, 315 + j, 50 + i, 350 + j);  // Thân
+        line(50 + i, 330 + j, 20 + i, 320 + j);  // Tay trái
+        line(50 + i, 330 + j, 80 + i, 320 + j);  // Tay phải
+
+        // Chân
+        if (m % 2 == 0) {
+            line(50 + i, 350 + j, 50 + i, 390 + j);  // Chân thẳng
+        } else {
+            line(50 + i, 350 + j, 35 + i, 390 + j);  // Chân trái
+            line(50 + i, 350 + j, 65 + i, 390 + j);  // Chân phải
+        }
+
+        // Di chuyển theo phím
+        if (GetAsyncKeyState(VK_LEFT)) {
+            if (i > -40) { // Giới hạn bên trái
+               i -= 5;
+                m++;
+            }
+        }
+        if (GetAsyncKeyState(VK_RIGHT)) {
+            if (i < max_width - 50) { // Giới hạn bên phải
+                i += 5;
+                m++;
+            }
+        }
+        if (GetAsyncKeyState(VK_ESCAPE)) { // Thoát bằng phím ESC
+            break;
+        }
+        if (GetAsyncKeyState(VK_UP)) { // Di chuyển lên
+            j -= 5;
+        }
+        if (GetAsyncKeyState(VK_DOWN)) { // Di chuyển xuống
+            j += 5;
+        }
+
+        // Cập nhật vị trí đám mây để tạo hiệu ứng động
+        for (int k = 0; k < CLOUD_COUNT; k++) {
+            cloud_positions[k][0] += 1; // Di chuyển đám mây sang phải
+            if (cloud_positions[k][0] > max_width) {
+                cloud_positions[k][0] = -100; // Nếu ra ngoài, trở lại bên trái
+                cloud_positions[k][1] = 70 + rand() % 100; // Thay đổi vị trí Y ngẫu nhiên
+            }
+        }
+
+        setvisualpage(page); // Hiển thị trang hiện tại
+
+        page = 1 - page; // Chuyển đổi giữa 2 trang
+
+        delay(50); // Giảm độ trễ để chuyển trang mượt mà hơn
+    }
+
+    closegraph();
+    return 0;
+}
