@@ -39,50 +39,56 @@ void nui() {
     int mountain2[] = {300, 300, 500, 100, 700, 300, 300, 300};
     fillpoly(4, mountain2);
 }
-// Hàm vẽ chim
+//hàm vẽ chim
 void drawBird(int x, int y) {
-    setcolor(BLACK);
+    // Vẽ thân chim (hình elip)
     setfillstyle(SOLID_FILL, BLACK);
-    
-    // Vẽ thân chim
-    ellipse(x, y, 0, 360, 50, 20);
-    floodfill(x, y, BLACK);
-    
-    // Vẽ cánh chim (hình tam giác)
-    int wingX1 = x + 30;
-    int wingY1 = y - 20;
-    int wingX2 = x + 30;
-    int wingY2 = y + 20;
-    int wingX3 = x + 60;
-    int wingY3 = y;
+    fillellipse(x, y, 100, 50); // tâm (x, y), bán kính ngang 100, bán kính dọc 50
 
+    // Vẽ đầu chim (hình tròn)
     setfillstyle(SOLID_FILL, BLACK);
-    floodfill(wingX1, wingY1, BLACK);
-    floodfill(wingX2, wingY2, BLACK);
-    
-    // Vẽ đuôi chim
-    line(x - 50, y, x - 70, y + 20);
-    line(x - 50, y, x - 70, y - 20);
-    line(x - 70, y - 20, x - 70, y + 20);
-    
-    // Vẽ đầu chim
-    setcolor(BLACK);
-    circle(x + 70, y, 10); // Vẽ đầu chim
-    floodfill(x + 70, y, BLACK);
-    
-    // Vẽ mỏ chim
-    setcolor(BLACK);
-    line(x + 70, y, x + 85, y - 5);
-    line(x + 70, y, x + 85, y + 5);
+    fillellipse(x + 100, y, 30, 30); // đầu nằm bên phải thân chim
+
+    // Vẽ mỏ (hình tam giác nhỏ)
+    setfillstyle(SOLID_FILL, BLACK);
+    line(x + 130, y, x + 150, y - 10); // phần trên của mỏ
+    line(x + 130, y, x + 150, y + 10); // phần dưới của mỏ
+    line(x + 150, y - 10, x + 150, y + 10); // nối hai điểm của mỏ
+
+    // Vẽ cánh (mô phỏng cánh vỗ)
+    static bool wingUp = false;
+    if (wingUp) {
+        line(x - 50, y, x - 150, y - 100); // cánh trái bay lên
+        line(x - 150, y - 100, x - 100, y); // cánh trái trở về thân
+        line(x + 50, y, x + 150, y - 100); // cánh phải bay lên
+        line(x + 150, y - 100, x + 100, y); // cánh phải trở về thân
+    } else {
+        line(x - 50, y, x - 150, y + 100); // cánh trái bay xuống
+        line(x - 150, y + 100, x - 100, y); // cánh trái trở về thân
+        line(x + 50, y, x + 150, y + 100); // cánh phải bay xuống
+        line(x + 150, y + 100, x + 100, y); // cánh phải trở về thân
+    }
+    wingUp = !wingUp; // thay đổi trạng thái cánh cho khung hình tiếp theo
 }
 
-void moveBird(int &x) {
-    // Cập nhật vị trí x để tạo hiệu ứng bay
-    x += 5; // Di chuyển theo chiều ngang
-    
-    // Reset x khi chim ra khỏi màn hình
-    if (x > getmaxx()) {
-        x = 0;
+// Hàm tạo chuyển động bay cho nhiều con chim
+void moveBirds() {
+    int x1 = 0, y1 = 200;  // Vị trí chim thứ nhất
+    int x2 = 200, y2 = 350;  // Vị trí chim thứ hai
+    int x3 = 300, y3 = 450;  // Vị trí chim thứ ba
+
+    while (x1 < getmaxx() + 200) { // Di chuyển chim từ trái sang phải
+
+        drawBird(x1, y1);
+        drawBird(x2, y2);
+        drawBird(x3, y3);
+
+        delay(50); // Dừng 100 ms giữa mỗi khung hình
+
+        // Di chuyển từng con chim sang phải
+        x1 += 10;
+        x2 += 10;
+        x3 += 10;
     }
 }
 // Hàm vẽ đường
@@ -135,13 +141,7 @@ int main() {
         may();
         duong();
         nui();
-        // Vẽ hai con chim
-        drawBird(x1, y1);
-        drawBird(x2, y2);
-        
-        // Cập nhật vị trí của từng chim
-        moveBird(x1);
-        moveBird(x2);
+        moveBirds();
 
         // Vẽ nhân vật chạy
         setcolor(WHITE);
