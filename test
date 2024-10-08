@@ -1,0 +1,260 @@
+#include <stdio.h>
+#include <conio.h>
+#include <graphics.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <time.h>
+#include <math.h>
+#define CLOUD_COUNT 5
+
+// Khai báo mảng vị trí đám mây
+long long cloud_positions[CLOUD_COUNT][2];
+float bird_speed = 1.0; // Tốc độ bay của chim
+
+// VẼ CHIM
+void drawBird(int x, int y, float a, int birdType) {
+    setcolor(0);
+    int b[10];
+
+    switch (birdType) {
+        case 1: // Bird 1
+            b[0] = a * (x - 20); b[1] = a * (y - 15);
+            b[2] = a * x; b[3] = a * (y + 5);
+            b[4] = a * (x + 20); b[5] = a * (y - 15);
+            break;
+        case 2: // Bird 2
+            b[0] = a * (x - 20); b[1] = a * (y - 10);
+            b[2] = a * x; b[3] = a * (y + 3);
+            b[4] = a * (x + 20); b[5] = a * (y - 10);
+            break;
+        case 3: // Bird 3
+            b[0] = a * (x - 20); b[1] = a * y;
+            b[2] = a * x; b[3] = a * (y + 5);
+            b[4] = a * (x + 20); b[5] = a * y;
+            break;
+        case 4: // Bird 4
+            b[0] = a * (x - 20); b[1] = a * (y + 10);
+            b[2] = a * x; b[3] = a * (y + 5);
+            b[4] = a * (x + 20); b[5] = a * (y + 10);
+            break;
+        case 5: // Bird 5
+            b[0] = a * (x - 20); b[1] = a * (y + 15);
+            b[2] = a * x; b[3] = a * (y + 5);
+            b[4] = a * (x + 20); b[5] = a * (y + 15);
+            break;
+        case 6: // Bird 6
+            b[0] = a * (x - 10); b[1] = a * (y - 10);
+            b[2] = a * x; b[3] = a * (y + 10);
+            b[4] = a * (x + 10); b[5] = a * (y - 10);
+            break;
+        case 7: // Bird 7
+            b[0] = a * (x - 15); b[1] = a * (y - 5);
+            b[2] = a * x; b[3] = a * (y + 15);
+            b[4] = a * (x + 15); b[5] = a * (y - 5);
+            break;
+    }
+
+    b[6] = a * (x - 20); b[7] = a * (y - 15); // Đóng poly
+    drawpoly(5, b);
+    setfillstyle(1, 0);
+    floodfill(a * x, a * y, 0);
+    setcolor(15);
+}
+
+// Hàm điều chỉnh tốc độ bay của chim
+void adjustBirdSpeed(float adjustment) {
+    bird_speed += adjustment; // Điều chỉnh tốc độ
+    if (bird_speed < 0) bird_speed = 0; // Tốc độ không âm
+}
+
+// HÀM VẼ MẶT TRỜI
+void sun() {
+    setcolor(WHITE);
+    setfillstyle(SOLID_FILL, YELLOW);
+    circle(550, 60, 50);
+    floodfill(550, 60, WHITE);
+}
+
+// VẼ LÁ
+void vehoa(int x, int y) {
+    setcolor(LIGHTMAGENTA);
+    setfillstyle(SOLID_FILL, LIGHTMAGENTA);
+    fillellipse(x, y, 3, 3);
+}
+
+// KHỞI TẠO GIÁ TRỊ CHO HOA
+int ax[60], ay[60], tocdo[60], tocdox[60];
+// HIỆU ỨNG HOA RƠI
+void vela() {
+    for (int i = 0; i < 60; i++) {
+        vehoa(ax[i], ay[i]);
+        ax[i] = ax[i] + tocdox[i]; // cho hoa rơi theo phương ngang 
+        ay[i] = ay[i] + tocdo[i]; // cho hoa rơi theo phương dọc 
+
+        // khởi tạo lại giá trị khi hoa rơi khỏi màn hình 
+        if (ax[i] > getmaxx() || ay[i] > getmaxy() || ax[i] < 0 || tocdo[i] == 0) {
+            ax[i] = rand() % getmaxx();
+            ay[i] = 0;
+            tocdox[i] = rand() % 5 + (-1);
+            tocdo[i] = rand() % 3;
+        }
+    }
+}
+
+// HÀM VẼ ĐÁM MÂY
+void may() {
+    setcolor(WHITE);
+    setfillstyle(SOLID_FILL, WHITE);
+    for (int k = 0; k < CLOUD_COUNT; k++) {
+        fillellipse(cloud_positions[k][0], cloud_positions[k][1], 50, 40);
+        fillellipse(cloud_positions[k][0] + 50, cloud_positions[k][1], 40, 30);
+        fillellipse(cloud_positions[k][0] - 50, cloud_positions[k][1], 40, 30);
+        fillellipse(cloud_positions[k][0] + 30, cloud_positions[k][1] - 20, 40, 30);
+        fillellipse(cloud_positions[k][0] - 30, cloud_positions[k][1] - 20, 40, 30);
+    }
+}
+
+// HÀM VẼ NÚI
+void nui() {
+    setcolor(GREEN);
+    setfillstyle(SOLID_FILL, LIGHTGREEN);
+    int mountain1[] = {0, 300, 200, 150, 400, 300, 0, 300};
+    fillpoly(4, mountain1);
+    
+    int mountain2[] = {300, 300, 500, 100, 700, 300, 300, 300};
+    fillpoly(4, mountain2);
+}
+
+// HÀM VẼ ĐƯỜNG
+void duong() {
+    setfillstyle(1, LIGHTGREEN);
+    bar(0, 450, 800, 500);
+
+    setfillstyle(1, LIGHTGRAY);
+    bar(0, 350, 800, 450);
+    setfillstyle(1, LIGHTCYAN);
+    bar(0, 300, 800, 350);
+    setfillstyle(1, DARKGRAY);
+    bar(0, 300, 800, 310);
+    setlinestyle(0, 4, 2);
+    line(0, 360, 800, 360);
+    line(0, 440, 800, 440);
+    for (long long i = 50; i <= 550; i += 100) {
+        line(i, 400, i + 50, 400);
+    }
+}
+
+// CỐI XAY GIÓ
+void coixaygio(int tamx, int tamy, int w, int h, int angle = 0) {
+    double theta = (double)(angle % 180) * 3.14 / 180.0;
+    int dx = w / 2;
+    int dy = h / 2;
+
+    // tọa độ của 4 điểm trong hcn
+    int point[8] = {
+        (int)(-dx * cos(theta) - dy * sin(theta) + tamx),
+        (int)(-dx * sin(theta) + dy * cos(theta) + tamy),
+        (int)(dx * cos(theta) - dy * sin(theta) + tamx),
+        (int)(dx * sin(theta) + dy * cos(theta) + tamy),
+        (int)(dx * cos(theta) - -dy * sin(theta) + tamx),
+        (int)(dx * sin(theta) - -dy * cos(theta) + tamy),
+        (int)(-dx * cos(theta) - -dy * sin(theta) + tamx),
+        (int)(-dx * sin(theta) - -dy * cos(theta) + tamy)
+    };
+    setfillstyle(1, YELLOW);
+    fillpoly(4, point);
+}
+
+void drawPerson(int x, int y) {
+    setcolor(WHITE);
+    // Thân người
+    line(x, y, x, y + 50);
+    // Đầu
+    circle(x, y - 10, 10);
+    // Tay
+    line(x, y + 10, x - 15, y + 30);
+    line(x, y + 10, x + 15, y + 30);
+    // Chân
+    line(x, y + 50, x - 15, y + 70);
+    line(x, y + 50, x + 15, y + 70);
+}
+
+// Vòng lặp chính
+int main() {
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "");
+
+    // Khởi tạo vị trí đám mây ngẫu nhiên
+    for (int i = 0; i < CLOUD_COUNT; i++) {
+        cloud_positions[i][0] = rand() % getmaxx();
+        cloud_positions[i][1] = rand() % 150;
+    }
+
+    // Khởi tạo vị trí hoa ngẫu nhiên
+    for (int i = 0; i < 60; i++) {
+        ax[i] = rand() % getmaxx();
+        ay[i] = rand() % 300;
+        tocdo[i] = rand() % 3;
+        tocdox[i] = rand() % 5 + (-1);
+    }
+
+    // Vị trí người
+    int personX = getmaxx() / 2;
+    int personY = 400;
+
+    // Vòng lặp chính
+    while (!kbhit()) {
+        // Xóa màn hình
+        cleardevice();
+
+        // Vẽ các thành phần
+        sun();
+        may();
+        nui();
+        duong();
+        vela();
+
+        // Vẽ chim
+        for (int j = 0; j < CLOUD_COUNT; j++) {
+            drawBird(cloud_positions[j][0], cloud_positions[j][1], bird_speed, (j % 7) + 1); // Vẽ chim với tốc độ điều chỉnh
+            cloud_positions[j][0] += bird_speed; // Cập nhật vị trí chim
+            // Reset lại nếu chim ra ngoài màn hình
+            if (cloud_positions[j][0] > getmaxx()) {
+                cloud_positions[j][0] = 0; // Khởi tạo lại vị trí chim
+                cloud_positions[j][1] = rand() % 150; // Thay đổi chiều cao ngẫu nhiên
+            }
+        }
+
+        // Vẽ người
+        drawPerson(personX, personY);
+
+        // Nhấn phím để di chuyển
+        if (_kbhit()) {
+            int key = _getch();
+            switch (key) {
+                case 75: // Phím trái
+                    personX -= 10;
+                    if (personX < 0) personX = 0; // Không để người ra ngoài màn hình
+                    break;
+                case 77: // Phím phải
+                    personX += 10;
+                    if (personX > getmaxx()) personX = getmaxx(); // Không để người ra ngoài màn hình
+                    break;
+                case '+': // Phím "+" để tăng tốc độ
+                    adjustBirdSpeed(0.1);
+                    break;
+                case '-': // Phím "-" để giảm tốc độ
+                    adjustBirdSpeed(-0.1);
+                    break;
+                case 27: // ESC để thoát
+                    exit(0);
+                    break;
+            }
+        }
+
+        delay(50);
+    }
+
+    closegraph();
+    return 0;
+}
