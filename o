@@ -224,7 +224,7 @@ int main() {
 	
     long long i = 0, j = 0, m = 1, page = 0;
     long long max_width = getmaxx(); // Lấy giới hạn chiều rộng của màn hình
-	int sum =0; a = 0;
+	int sum =0;int a = 0;
         int speed = 100;
     while (1) { int x1 = 200  ,y1 = 200;
         setactivepage(page);
