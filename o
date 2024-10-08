@@ -56,8 +56,6 @@ void drawBird_5(int x, int y, float a){
 }
 void vocanh(int x, int y, float a, int speed) {
     int frame = 0;
-    while (!kbhit()) {  // Kết thúc khi nhấn một phím bất kỳ
-        cleardevice();  // Xóa màn hình để vẽ lại
 
         // Cập nhật frame để mô phỏng vỗ cánh
         switch (frame) {
@@ -65,11 +63,10 @@ void vocanh(int x, int y, float a, int speed) {
             case 1: drawBird_2(x, y, a); break;
             case 2: drawBird_3(x, y, a); break;
             case 3: drawBird_4(x, y, a); break;
-            case 4: drawBird_5(x, y, a); break;
+            case 4: drawBird_5(x, y, a); frame = 0; break;
         }
 
-        frame = (frame + 1) % 5;  // Chuyển sang frame tiếp theo và lặp lại sau 5 frame
-
+        frame++;
         delay(speed);  // Điều chỉnh tốc độ vỗ cánh dựa vào biến 'speed'
     }
 }
