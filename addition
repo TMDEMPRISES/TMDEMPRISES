@@ -1,0 +1,81 @@
+// Vẽ cây cối
+void veCay(int x, int y) {
+    setcolor(GREEN);
+    setfillstyle(SOLID_FILL, GREEN);
+    fillellipse(x, y - 30, 20, 30); // Tán cây
+    setcolor(BROWN);
+    setfillstyle(SOLID_FILL, BROWN);
+    bar(x - 5, y - 30, x + 5, y + 20); // Thân cây
+}
+
+// Vẽ xe
+void veXe(int x, int y) {
+    setcolor(BLUE);
+    setfillstyle(SOLID_FILL, BLUE);
+    bar(x, y, x + 100, y - 30); // Thân xe
+
+    setcolor(WHITE);
+    setfillstyle(SOLID_FILL, WHITE);
+    circle(x + 20, y, 10); // Bánh xe trước
+    circle(x + 80, y, 10); // Bánh xe sau
+    floodfill(x + 20, y, WHITE);
+    floodfill(x + 80, y, WHITE);
+}
+veCay(100, 420); // Cây bên trái
+veCay(300, 420); // Cây giữa
+veCay(500, 420); // Cây bên phải
+
+veXe(50 + i, 380); // Xe di chuyển theo trục X
+//hàm tốc dộ vỗ cánh
+int flapSpeed = 200; // Tốc độ vỗ cánh
+int a = 0; // Biến điều khiển trạng thái vỗ cánh
+float scale = 1.0; // Tỷ lệ của chim
+
+while (1) {
+    int x1 = 200, y1 = 200;
+
+    // Vẽ chim với trạng thái vỗ cánh dựa trên biến a
+    if (a == 0) {
+        drawBird_1(x1, y1, scale); 
+    } else if (a == 1) {
+        drawBird_2(x1, y1, scale);
+    } else if (a == 2) {
+        drawBird_3(x1, y1, scale);
+    } else if (a == 3) {
+        drawBird_4(x1, y1, scale);
+    } else if (a == 4) {
+        drawBird_5(x1, y1, scale);
+        a = 0; // Reset trạng thái vỗ cánh
+    }
+    
+    a++; // Tăng trạng thái vỗ cánh
+
+    delay(flapSpeed); // Tốc độ vỗ cánh của chim
+}
+if (GetAsyncKeyState(VK_ADD)) { // Phím +
+    flapSpeed = max(50, flapSpeed - 10); // Giảm delay để chim vỗ nhanh hơn
+}
+if (GetAsyncKeyState(VK_SUBTRACT)) { // Phím -
+    flapSpeed += 10; // Tăng delay để chim vỗ chậm hơn
+}
+//âm thanh
+//chim vỗ cánh
+if (a == 0) {
+    drawBird_1(x1, y1, scale);
+    Beep(500, 100); // Phát âm thanh tần số 500Hz, thời gian 100ms
+}
+//người di chuyển
+if (GetAsyncKeyState(VK_LEFT)) {
+    if (i > -40) {
+        i -= 5;
+        m++;
+        Beep(300, 100); // Âm thanh khi di chuyển sang trái
+    }
+}
+if (GetAsyncKeyState(VK_RIGHT)) {
+    if (i < max_width - 50) {
+        i += 5;
+        m++;
+        Beep(700, 100); // Âm thanh khi di chuyển sang phải
+    }
+}
