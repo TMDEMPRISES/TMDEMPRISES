@@ -231,7 +231,7 @@ int main() {
 	
     long long i = 0, j = 0, m = 1, page = 0;
     long long max_width = getmaxx(); // Lấy giới hạn chiều rộng của màn hình
-	int sum =0; int a =0; float scale = 1.0;
+	int sum =0; float scale = 1.0;
         int speed = 100;
     while (1) { int x1 = 200  ,y1 = 200;
         setactivepage(page);
@@ -248,15 +248,7 @@ int main() {
 		vela();
 		sum+= 2; 
 		if ( sum >= 360) sum = 0;
-        if (a==0 ) {
-		drawBird_1(x1,y1,scale); delay(200) ;}
-        	else if (a==1) drawBird_2(x1,y1,scale);
-        		else if ( a==2) drawBird_3(x1,y1,scale);
-        			else if (a==3) drawBird_4(x1,y1,scale);
-        				else if ( a==4 ) {drawBird_5(x1,y1,scale);
-        					a=0;
-						}
-	a++;
+        
         // Vẽ nhân vật chạy
         setcolor(WHITE);
         circle(50 + i, 300 + j, 15);  // Đầu
