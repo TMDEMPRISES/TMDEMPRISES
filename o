@@ -56,11 +56,11 @@ void drawBird_5(int x, int y, float a){
 }
 void vocanh(int x, int y, int a, int speed) {
  float scale = 1.0;  
-if (a==0 ) {drawBird_1(x1,y1,scale); delay(speed) ;}
-        	else if (a==1){drawBird_2(x1,y1,scale); delay(speed) ;}
-        		else if ( a==2){drawBird_3(x1,y1,scale); delay(speed) ;}
-        			else if (a==3){drawBird_4(x1,y1,scale); delay(speed) ;}
-        				else if ( a==4 ){drawBird_5(x1,y1,scale); delay(speed) ;}
+if (a==0 ) {drawBird_1(x,y,scale); delay(speed) ;}
+        	else if (a==1){drawBird_2(x,y,scale); delay(speed) ;}
+        		else if ( a==2){drawBird_3(x,y,scale); delay(speed) ;}
+        			else if (a==3){drawBird_4(x,y,scale); delay(speed) ;}
+        				else if ( a==4 ){drawBird_5(x,y,scale); delay(speed) ;}
         					a=0;
 						}
 	a++;
