@@ -21,11 +21,14 @@ void veXe(int x, int y) {
     floodfill(x + 20, y, WHITE);
     floodfill(x + 80, y, WHITE);
 }
+
+{
 veCay(100, 420); // Cây bên trái
 veCay(300, 420); // Cây giữa
 veCay(500, 420); // Cây bên phải
 
 veXe(50 + i, 380); // Xe di chuyển theo trục X
+} //main
 //hàm tốc dộ vỗ cánh
 int flapSpeed = 200; // Tốc độ vỗ cánh
 int a = 0; // Biến điều khiển trạng thái vỗ cánh
