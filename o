@@ -64,15 +64,15 @@ while (1) {
 
     // Vẽ chim với trạng thái vỗ cánh dựa trên biến a
     if (a == 0) {
-        drawBird_1(x1, y1, scale); 
+        drawBird_1(x1, y1, a); 
     } else if (a == 1) {
-        drawBird_2(x1, y1, scale);
+        drawBird_2(x1, y1, a);
     } else if (a == 2) {
-        drawBird_3(x1, y1, scale);
+        drawBird_3(x1, y1, a);
     } else if (a == 3) {
-        drawBird_4(x1, y1, scale);
+        drawBird_4(x1, y1, a);
     } else if (a == 4) {
-        drawBird_5(x1, y1, scale);
+        drawBird_5(x1, y1, a);
         a = 0; // Reset trạng thái vỗ cánh
     }
     
