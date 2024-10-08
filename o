@@ -54,18 +54,20 @@ void drawBird_5(int x, int y, float a){
     floodfill(a*x, a*y, 0);
     setcolor(15);
 }
-void vocanh(int x, int y, int a, int speed) {
- float scale = 1.0;  
-if (a==0 ) {drawBird_1(x,y,scale); delay(speed) ;}
-        	else if (a==1){drawBird_2(x,y,scale); delay(speed) ;}
-        		else if ( a==2){drawBird_3(x,y,scale); delay(speed) ;}
-        			else if (a==3){drawBird_4(x,y,scale); delay(speed) ;}
-        				else if ( a==4 ){drawBird_5(x,y,scale); delay(speed) ;}
-        					a=0;
-						}
-	a++;
-    
+
+ void vocanh(int x, int y, int &a, int speed) {
+    float scale = 1.0;
+    switch(a) {
+        case 0: drawBird_1(x, y, scale); break;
+        case 1: drawBird_2(x, y, scale); break;
+        case 2: drawBird_3(x, y, scale); break;
+        case 3: drawBird_4(x, y, scale); break;
+        case 4: drawBird_5(x, y, scale); break;
+    }
+    a = (a + 1) % 5;  // Đảm bảo a luôn nằm trong khoảng từ 0 đến 4
+    delay(speed);
 }
+
 
 // HÀM VẼ MẶT TRỜI
 void sun() {
