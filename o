@@ -54,20 +54,16 @@ void drawBird_5(int x, int y, float a){
     floodfill(a*x, a*y, 0);
     setcolor(15);
 }
-void vocanh(int x, int y, float a, int speed) {
-    int frame = 0;
-
-        // Cập nhật frame để mô phỏng vỗ cánh
-        switch (frame) {
-            case 0: drawBird_1(x, y, a); break;
-            case 1: drawBird_2(x, y, a); break;
-            case 2: drawBird_3(x, y, a); break;
-            case 3: drawBird_4(x, y, a); break;
-            case 4: drawBird_5(x, y, a); frame = 0; break;
-        }
-
-        frame++;
-        delay(speed);  // Điều chỉnh tốc độ vỗ cánh dựa vào biến 'speed'
+void vocanh(int x, int y, int a, int speed) {
+ float scale = 1.0;  
+if (a==0 ) {drawBird_1(x1,y1,scale); delay(speed) ;}
+        	else if (a==1){drawBird_2(x1,y1,scale); delay(speed) ;}
+        		else if ( a==2){drawBird_3(x1,y1,scale); delay(speed) ;}
+        			else if (a==3){drawBird_4(x1,y1,scale); delay(speed) ;}
+        				else if ( a==4 ){drawBird_5(x1,y1,scale); delay(speed) ;}
+        					a=0;
+						}
+	a++;
     
 }
 
@@ -228,7 +224,7 @@ int main() {
 	
     long long i = 0, j = 0, m = 1, page = 0;
     long long max_width = getmaxx(); // Lấy giới hạn chiều rộng của màn hình
-	int sum =0; float scale = 1.0;
+	int sum =0; a = 0;
         int speed = 100;
     while (1) { int x1 = 200  ,y1 = 200;
         setactivepage(page);
@@ -238,7 +234,7 @@ int main() {
         nui();
         may();
         duong();
-        vocanh(x1, y1, scale, speed);
+        vocanh(x1, y1, a, speed);
 		tamgiac(250,225); 
 		coixaygio(250,225,25,75,sum);
 		coixaygio(250,225,25,75,sum+90);
