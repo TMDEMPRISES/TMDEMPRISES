@@ -55,7 +55,7 @@ void drawBird_5(int x, int y, float a){
     setcolor(15);
 }
 
- void vocanh(int x, int y, int &a, int speed) {
+ void vocanh(int x, int y, int &a) {
     float scale = 1.0;
     switch(a) {
         case 0: drawBird_1(x, y, scale); break;
@@ -65,7 +65,6 @@ void drawBird_5(int x, int y, float a){
         case 4: drawBird_5(x, y, scale); break;
     }
     a = (a + 1) % 5;  // Đảm bảo a luôn nằm trong khoảng từ 0 đến 4
-    delay(speed);
 }
 
 
@@ -228,7 +227,7 @@ int main() {
     long long max_width = getmaxx(); // Lấy giới hạn chiều rộng của màn hình
 	int sum =0;int a = 0;
         int speed = 100;
-    while (1) { int x1 = 200  ,y1 = 200;
+    while (1) { int x1 = 200  ,y1 = 200,x2 = 150,y2 = 250,x3 = 250,y3 = 250;
         setactivepage(page);
         cleardevice(); // Xóa trang active trước khi vẽ
         setbkcolor(LIGHTBLUE);
@@ -236,7 +235,9 @@ int main() {
         nui();
         may();
         duong();
-        vocanh(x1, y1, a, speed);
+        vocanh(x1, y1, a);
+        vocanh(x2, y2, a);
+        vocanh(x2, y2, a);
 		tamgiac(250,225); 
 		coixaygio(250,225,25,75,sum);
 		coixaygio(250,225,25,75,sum+90);
