@@ -241,7 +241,7 @@ int main() {
         nui();
         may();
         duong();
-        vocanh(x, y, scale, speed);
+        vocanh(x1, y1, scale, speed);
 		tamgiac(250,225); 
 		coixaygio(250,225,25,75,sum);
 		coixaygio(250,225,25,75,sum+90);
