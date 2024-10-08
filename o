@@ -45,6 +45,15 @@ void drawBird_4(int x, int y, float a){
     floodfill(a*x, a*y, 0);
     setcolor(15);
 }
+
+void drawBird_5(int x, int y, float a){
+    setcolor(0);
+    int b5[10] = {a*(x - 20), a*(y + 15), a*x, a*(y+5), a*(x+20), a*(y+15), a*x, a*(y - 5), a*(x - 20), a*(y+15)};
+    drawpoly(5, b5);
+    setfillstyle(1, 0);
+    floodfill(a*x, a*y, 0);
+    setcolor(15);
+}
 void vocanh(int x, int y, float a, int speed) {
     int frame = 0;
     while (!kbhit()) {  // Kết thúc khi nhấn một phím bất kỳ
@@ -63,16 +72,6 @@ void vocanh(int x, int y, float a, int speed) {
 
         delay(speed);  // Điều chỉnh tốc độ vỗ cánh dựa vào biến 'speed'
     }
-}
-
-
-void drawBird_5(int x, int y, float a){
-    setcolor(0);
-    int b5[10] = {a*(x - 20), a*(y + 15), a*x, a*(y+5), a*(x+20), a*(y+15), a*x, a*(y - 5), a*(x - 20), a*(y+15)};
-    drawpoly(5, b5);
-    setfillstyle(1, 0);
-    floodfill(a*x, a*y, 0);
-    setcolor(15);
 }
 
 // HÀM VẼ MẶT TRỜI
