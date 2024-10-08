@@ -57,7 +57,6 @@ void drawBird_5(int x, int y, float a){
 //hàm tốc dộ vỗ cánh
 void speed(int sp){
 int a = 0; // Biến điều khiển trạng thái vỗ cánh
-float scale = 1.0; // Tỷ lệ của chim
 
 while (1) {
     int x1 = 200, y1 = 200;
