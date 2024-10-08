@@ -68,7 +68,7 @@ void vocanh(int x, int y, float a, int speed) {
 
         frame++;
         delay(speed);  // Điều chỉnh tốc độ vỗ cánh dựa vào biến 'speed'
-    }
+    
 }
 
 // HÀM VẼ MẶT TRỜI
