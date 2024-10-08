@@ -45,6 +45,26 @@ void drawBird_4(int x, int y, float a){
     floodfill(a*x, a*y, 0);
     setcolor(15);
 }
+void vocanh(int x, int y, float a, int speed) {
+    int frame = 0;
+    while (!kbhit()) {  // Kết thúc khi nhấn một phím bất kỳ
+        cleardevice();  // Xóa màn hình để vẽ lại
+
+        // Cập nhật frame để mô phỏng vỗ cánh
+        switch (frame) {
+            case 0: drawBird_1(x, y, a); break;
+            case 1: drawBird_2(x, y, a); break;
+            case 2: drawBird_3(x, y, a); break;
+            case 3: drawBird_4(x, y, a); break;
+            case 4: drawBird_5(x, y, a); break;
+        }
+
+        frame = (frame + 1) % 5;  // Chuyển sang frame tiếp theo và lặp lại sau 5 frame
+
+        delay(speed);  // Điều chỉnh tốc độ vỗ cánh dựa vào biến 'speed'
+    }
+}
+
 
 void drawBird_5(int x, int y, float a){
     setcolor(0);
@@ -53,32 +73,6 @@ void drawBird_5(int x, int y, float a){
     setfillstyle(1, 0);
     floodfill(a*x, a*y, 0);
     setcolor(15);
-}
-//hàm tốc dộ vỗ cánh
-void speed(int sp){
-int a = 0; // Biến điều khiển trạng thái vỗ cánh
-
-while (1) {
-    int x1 = 200, y1 = 200;
-
-    // Vẽ chim với trạng thái vỗ cánh dựa trên biến a
-    if (a == 0) {
-        drawBird_1(x1, y1, a); 
-    } else if (a == 1) {
-        drawBird_2(x1, y1, a);
-    } else if (a == 2) {
-        drawBird_3(x1, y1, a);
-    } else if (a == 3) {
-        drawBird_4(x1, y1, a);
-    } else if (a == 4) {
-        drawBird_5(x1, y1, a);
-        a = 0; // Reset trạng thái vỗ cánh
-    }
-    
-    a++; // Tăng trạng thái vỗ cánh
-
-    delay(sp); // Tốc độ vỗ cánh của chim
-}
 }
 
 // HÀM VẼ MẶT TRỜI
@@ -239,6 +233,7 @@ int main() {
     long long i = 0, j = 0, m = 1, page = 0;
     long long max_width = getmaxx(); // Lấy giới hạn chiều rộng của màn hình
 	int sum =0; int a =0; float scale = 1.0;
+        int speed = 100;
     while (1) { int x1 = 200  ,y1 = 200;
         setactivepage(page);
         cleardevice(); // Xóa trang active trước khi vẽ
@@ -247,14 +242,7 @@ int main() {
         nui();
         may();
         duong();
-    int sp = 200; // Tốc độ vỗ cánh
-        speed(sp);
-    if (GetAsyncKeyState(VK_ADD)) { // Phím +
-    sp -= 10; // Giảm delay để chim vỗ nhanh hơn
-}
-if (GetAsyncKeyState(VK_SUBTRACT)) { // Phím -
-    sp += 10; // Tăng delay để chim vỗ chậm hơn
-}
+        vocanh(x, y, scale, speed);
 		tamgiac(250,225); 
 		coixaygio(250,225,25,75,sum);
 		coixaygio(250,225,25,75,sum+90);
