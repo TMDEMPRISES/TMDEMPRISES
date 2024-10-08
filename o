@@ -78,7 +78,7 @@ while (1) {
     
     a++; // Tăng trạng thái vỗ cánh
 
-    delay(flapSpeed); // Tốc độ vỗ cánh của chim
+    delay(sp); // Tốc độ vỗ cánh của chim
 }
 }
 
