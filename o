@@ -226,8 +226,7 @@ int main() {
     long long i = 0, j = 0, m = 1, page = 0;
     long long max_width = getmaxx(); // Lấy giới hạn chiều rộng của màn hình
 	int sum =0;int a = 0;
-        int speed = 100;
-    while (1) { int x1 = 200  ,y1 = 200,x2 = 150,y2 = 250,x3 = 250,y3 = 250;
+    while (1) { int x1 = 200  ,y1 = 250,x2 = 150,y2 = 300,x3 = 250,y3 = 350;
         setactivepage(page);
         cleardevice(); // Xóa trang active trước khi vẽ
         setbkcolor(LIGHTBLUE);
