@@ -208,40 +208,44 @@ void la(int x, int y ,	int angle = 0) {
 
 
 // HÀM VẼ ĐƯỜNG
+int beos[3][2] = {{325, 325}, {150, 335}, {500, 335}};
+
 void duong() {
-	int sandColor = RGB(194, 178, 128);
-    setfillstyle(1,sandColor);
+    int sandColor = RGB(194, 178, 128);
+    setfillstyle(1, sandColor);
     bar(0, 400, 800, 500);
    
-    
-    
     int riverColor = RGB(0, 51, 102);
     setfillstyle(1, riverColor);
     bar(0,300,800,360);
     
-    
-    
-    int  PaleGreen = RGB(175, 238, 238);
-    setfillstyle(1,  PaleGreen);
+    int PaleGreen = RGB(175, 238, 238);
+    setfillstyle(1, PaleGreen);
     bar(0,360,800,380);
-    
     
     int DarkBlue = RGB(224, 255, 255);
     setfillstyle(1, DarkBlue);
-	bar(0,380,800,400);
-    
+    bar(0,380,800,400);
 
-    // vẽ bèo
     setcolor(GREEN);
-   	setfillstyle(1, LIGHTGREEN);
-   	pieslice(325,325,30,330,10);
-	pieslice(150,335,30,330,10);
-	pieslice(500,335,30,330,10);
-   	  	
+    setfillstyle(1, LIGHTGREEN);
+    for (int i = 0; i < 3; i++) {
+        pieslice(beos[i][0], beos[i][1], 30, 330, 10);
+    }
     
-    buicay(20,getmaxy()-10);
-    buicay(getmaxx()-20,getmaxy()-10);
-    
+    // Vẽ bụi cây ở hai bên
+    buicay(20, getmaxy() - 10);
+    buicay(getmaxx() - 20, getmaxy() - 10);
+}
+
+// Hàm cập nhật vị trí của bèo
+void capNhatBeo(int max_width) {
+    for (int i = 0; i < 3; i++) {
+        beos[i][0] += 2; // Tốc độ di chuyển ngang của bèo
+        if (beos[i][0] > max_width) {
+            beos[i][0] = -50; // Khi bèo ra khỏi màn hình, đưa nó về bên trái
+        }
+    }
 }
 
 
@@ -329,7 +333,8 @@ int main() {
         //BACKGROUND
         sun();    nui();    may();    duong(); 
         cay(100,450);    la(100,370,90);	vela();
-        
+        capNhatBeo(max_width);
+
         // CHIM
         vocanh(x1, y1, a,0.5);
         vocanh(x2, y2, a,1.0);
