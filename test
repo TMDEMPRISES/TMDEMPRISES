@@ -232,19 +232,13 @@ void duong() {
     
 
     // vẽ bèo
-    for (int i = 0; i < 3; i++) {
-        beox[i] += beospeed[i];  
-        if (beox[i] > getmaxx()) {
-            beox[i] = -10;  
-        }
-    }
-
     setcolor(GREEN);
-    setfillstyle(1, LIGHTGREEN);
-    pieslice(beox[0], 325, 30, 330, 10);
-    pieslice(beox[1], 335, 30, 330, 10);
-    pieslice(beox[2], 335, 30, 330, 10);
-
+   	setfillstyle(1, LIGHTGREEN);
+   	pieslice(325,325,30,330,10);
+	pieslice(150,335,30,330,10);
+	pieslice(500,335,30,330,10);
+   	  	
+    
     buicay(20,getmaxy()-10);
     buicay(getmaxx()-20,getmaxy()-10);
     
