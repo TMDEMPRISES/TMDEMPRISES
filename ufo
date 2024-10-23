@@ -1,0 +1,60 @@
+#include <graphics.h>
+#include <conio.h>
+
+int main() {
+    int driver = 0, mode = 0;
+    initgraph(&driver, &mode, (char*)"");
+
+    // Tọa độ khởi tạo cho UFO
+    int ufoX = 400, ufoY = 300;
+    int step = 10;  // Bước di chuyển của UFO
+
+    while (1) {
+        // Xóa trang cũ và đặt màu nền
+        setactivepage(0);
+        cleardevice();
+        setbkcolor(BLUE);
+
+        // Vẽ UFO
+        setcolor(WHITE);
+        setfillstyle(1, LIGHTCYAN);
+
+        // Thân UFO - hình elip
+        fillellipse(ufoX, ufoY, 60, 30);  // Elip làm thân UFO
+
+        // Phần trên UFO - nửa hình tròn
+        setfillstyle(1, LIGHTBLUE);
+        pieslice(ufoX, ufoY - 10, 0, 180, 40);
+
+        // Chân UFO
+        setcolor(WHITE);
+        line(ufoX - 20, ufoY + 15, ufoX - 30, ufoY + 25);  // Chân trái
+        line(ufoX + 20, ufoY + 15, ufoX + 30, ufoY + 25);  // Chân phải
+
+        // Điều khiển UFO bằng phím
+        if (kbhit()) {
+            char key = getch();
+            switch (key) {
+                case 75:  // Phím mũi tên trái
+                    ufoX -= step;
+                    break;
+                case 77:  // Phím mũi tên phải
+                    ufoX += step;
+                    break;
+                case 72:  // Phím mũi tên lên
+                    ufoY -= step;
+                    break;
+                case 80:  // Phím mũi tên xuống
+                    ufoY += step;
+                    break;
+            }
+        }
+
+        // Đổi trang
+        setvisualpage(0);
+        delay(50);
+    }
+
+    closegraph();
+    return 0;
+}
