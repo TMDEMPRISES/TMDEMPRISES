@@ -186,24 +186,29 @@ void drawUFO(int x, int y, bool glow) {
         setfillstyle(SOLID_FILL, YELLOW);
         // Tạo vòng sáng bên ngoài UFO để tạo hiệu ứng phát sáng
         fillellipse(x, y + 30, 70, 35);
-    }
-
     
+    setcolor(RED);
+    setfillstyle(SOLID_FILL, RED);
+    fillellipse(x, y - 35, 5, 5);  // Chóp đỏ trên đỉnh
+
     setcolor(LIGHTCYAN);
     setfillstyle(SOLID_FILL, LIGHTCYAN);
-    fillellipse(x, y, 35, 20);  // Đỉnh UFO
+    fillellipse(x, y - 20, 30, 20);  
 
-    
-    int points[] = {x - 55, y + 20, x + 55, y + 20, x + 40, y + 45, x - 40, y + 45};
+    int points[] = {x - 50, y, x + 50, y, x + 35, y + 20, x - 35, y + 20};
     setcolor(LIGHTGRAY);
     setfillstyle(SOLID_FILL, LIGHTGRAY);
-    fillpoly(4, points);  // Thân UFO hình thang
+    fillpoly(4, points);  
 
-    
-    setcolor(LIGHTBLUE);
-    for (int i = -30; i <= 30; i += 15) {
-        circle(x + i, y + 30, 5);  // Đèn nhỏ trên thân hình thang
-        floodfill(x + i, y + 30, LIGHTBLUE);
+    setcolor(DARKGRAY);
+    setfillstyle(SOLID_FILL, DARKGRAY);
+    bar(x + 10, y + 5, x + 30, y + 15);  
+
+    setcolor(YELLOW);
+    setfillstyle(SOLID_FILL, YELLOW);
+    fillellipse(x - 25, y + 25, 10, 10);  
+    fillellipse(x, y + 25, 10, 10);       
+    fillellipse(x + 25, y + 25, 10, 10);  
     }
 
     
