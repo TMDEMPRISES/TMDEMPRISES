@@ -184,28 +184,44 @@ void drawUFO(int x, int y, bool glow) {
         // Vẽ ánh sáng xung quanh UFO
         setcolor(YELLOW);
         setfillstyle(SOLID_FILL, YELLOW);
-        // Tạo vòng sáng bên ngoài UFO
-        fillellipse(x, y + 15, 60, 30);
+        // Tạo vòng sáng bên ngoài UFO để tạo hiệu ứng phát sáng
+        fillellipse(x, y + 30, 70, 35);
     }
 
-    // Vẽ đỉnh UFO (mái vòm)
+    
     setcolor(LIGHTCYAN);
     setfillstyle(SOLID_FILL, LIGHTCYAN);
-    fillellipse(x, y, 30, 15);  // Đỉnh UFO
+    fillellipse(x, y, 35, 20);  // Đỉnh UFO
 
-    // Vẽ thân UFO
+    
+    int points[] = {x - 55, y + 20, x + 55, y + 20, x + 40, y + 45, x - 40, y + 45};
     setcolor(LIGHTGRAY);
     setfillstyle(SOLID_FILL, LIGHTGRAY);
-    fillellipse(x, y + 15, 50, 20);  // Thân UFO
+    fillpoly(4, points);  // Thân UFO hình thang
 
-    // Vẽ đèn trên thân UFO
+    
     setcolor(LIGHTBLUE);
     for (int i = -30; i <= 30; i += 15) {
-        circle(x + i, y + 15, 5);  // Đèn nhỏ
-        floodfill(x + i, y + 15, LIGHTBLUE);
+        circle(x + i, y + 30, 5);  // Đèn nhỏ trên thân hình thang
+        floodfill(x + i, y + 30, LIGHTBLUE);
     }
-}
 
+    
+    setcolor(DARKGRAY);
+    line(x - 30, y + 45, x - 40, y + 55);
+    line(x + 30, y + 45, x + 40, y + 55);
+    line(x - 20, y + 45, x - 20, y + 60);
+    line(x + 20, y + 45, x + 20, y + 60);
+
+    
+    setcolor(CYAN);
+    setlinestyle(SOLID_LINE, 1, 3);  // Đường viền dày
+    arc(x, y + 20, 0, 180, 60);      // Viền sáng dưới thân
+    arc(x, y + 20, 0, 180, 65);      // Viền sáng xa hơn
+    setlinestyle(SOLID_LINE, 1, 1);  // Đặt lại đường viền mỏng
+
+    
+}
 // HÀM VẼ ĐÁM MÂY
 void may() {
     setcolor(WHITE);
@@ -484,35 +500,32 @@ int main() {
         // Vẽ UFO tại tọa độ (x, y) với trạng thái phát sáng
         drawUFO(x, y, glow);
 
-        // Lấy phím người dùng
-        ch = getch();
-
-        // Điều khiển UFO di chuyển bằng phím mũi tên
-        if (ch == 0) {
-            ch = getch();
-            switch (ch) {
-                case 72:  // Mũi tên lên
-                    y -= 10;
-                    break;
-                case 80:  // Mũi tên xuống
-                    y += 10;
-                    break;
-                case 75:  // Mũi tên trái
-                    x -= 10;
-                    break;
-                case 77:  // Mũi tên phải
-                    x += 10;
-                    break;
+       
+        
+        // Di chuyển theo phím
+        if (GetAsyncKeyState(VK_LEFT)) {
+            if (x > -40) { // Giới hạn bên trái
+               x -= 5;
+               
             }
-        } else if (ch == ' ') {
-            // Nếu phím Space được nhấn, chuyển đổi trạng thái phát sáng
-            glow = !glow;
         }
-
-        // Điều kiện thoát vòng lặp nếu nhấn phím ESC
-        if (ch == 27) {
+        if (GetAsyncKeyState(VK_RIGHT)) {
+            if (x < max_width - 50) { // Giới hạn bên phải
+                x += 5;
+               
+            }
+        }
+        if (GetAsyncKeyState(VK_ESCAPE)) { // Thoát bằng phím ESC
             break;
         }
+        if (GetAsyncKeyState(VK_UP)) { // Di chuyển lên
+            y -= 5;
+        }
+        if (GetAsyncKeyState(VK_DOWN)) { // Di chuyển xuống
+            y += 5;
+        } 
+        	
+       
 
         // Cập nhật vị trí đám mây để tạo hiệu ứng động
         for (int k = 0; k < CLOUD_COUNT; k++) {
