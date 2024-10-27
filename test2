@@ -408,9 +408,7 @@ int main() {
         exit(1);
     }
     int page = 0;
-    int skyColor = COLOR(135, 206, 235);
-    int a = 0;
-    srand(time(NULL)); // Khởi tạo seed cho random
+    
     
     // KHỞI TẠO VỊ TRÍ ĐÁM MÂY 
     for (int k = 0; k < CLOUD_COUNT; k++) {
