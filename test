@@ -185,8 +185,8 @@ void drawUFO(int x, int y) {
     fillellipse(x, y, 30, 15);  // Đỉnh UFO
 
     // Vẽ thân UFO
-    setcolor(GRAY);
-    setfillstyle(SOLID_FILL, GRAY);
+    setcolor(LIGHTGRAY);
+    setfillstyle(SOLID_FILL, LIGHTGRAY);
     fillellipse(x, y + 15, 50, 20);  // Thân UFO
 
     // Vẽ đèn trên thân UFO
