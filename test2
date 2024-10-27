@@ -2,6 +2,7 @@
 #include <graphics.h>
 #include <windows.h>
 #include<math.h>
+#include <conio.h> 
 #define CLOUD_COUNT 5
 #define PI 3.14159265
 // Khai báo mảng vị trí đám mây
@@ -406,7 +407,9 @@ int main() {
         getch();
         exit(1);
     }
-
+    int page = 0;
+    int skyColor = COLOR(135, 206, 235);
+    int a = 0;
     srand(time(NULL)); // Khởi tạo seed cho random
     
     // KHỞI TẠO VỊ TRÍ ĐÁM MÂY 
