@@ -186,46 +186,42 @@ void drawUFO(int x, int y, bool glow) {
         setfillstyle(SOLID_FILL, YELLOW);
         // Tạo vòng sáng bên ngoài UFO để tạo hiệu ứng phát sáng
         fillellipse(x, y + 30, 70, 35);
-    
-     setcolor(RED);
+    }
+
+    setcolor(RED);
     setfillstyle(SOLID_FILL, RED);
-    fillellipse(x, y - 40, 5, 5);  // Chóp đỏ trên đỉnh mái vòm
+    fillellipse(x, y - 40, 5, 5); 
 
     setcolor(LIGHTCYAN);
     setfillstyle(SOLID_FILL, LIGHTCYAN);
-    fillellipse(x, y - 20, 30, 20);  
-g
+    fillellipse(x, y - 20, 30, 20);
+
     int points[] = {x - 50, y, x + 50, y, x + 35, y + 30, x - 35, y + 30};
     setcolor(LIGHTGRAY);
     setfillstyle(SOLID_FILL, LIGHTGRAY);
-    fillpoly(4, points);  
+    fillpoly(4, points);  // Thân dưới của UFO
 
     setcolor(DARKGRAY);
     setfillstyle(SOLID_FILL, DARKGRAY);
-    bar(x + 10, y + 5, x + 30, y + 15); 
-O
+    bar(x + 10, y + 5, x + 30, y + 15);  // Chi tiết trên thân
+
     setcolor(YELLOW);
     setfillstyle(SOLID_FILL, YELLOW);
     fillellipse(x - 25, y + 40, 10, 10);  // Đèn trái
     fillellipse(x, y + 40, 10, 10);       // Đèn giữa
     fillellipse(x + 25, y + 40, 10, 10);  // Đèn phải
-    }
 
-    
     setcolor(DARKGRAY);
     line(x - 30, y + 45, x - 40, y + 55);
     line(x + 30, y + 45, x + 40, y + 55);
     line(x - 20, y + 45, x - 20, y + 60);
     line(x + 20, y + 45, x + 20, y + 60);
 
-    
     setcolor(CYAN);
     setlinestyle(SOLID_LINE, 1, 3);  // Đường viền dày
     arc(x, y + 20, 0, 180, 60);      // Viền sáng dưới thân
     arc(x, y + 20, 0, 180, 65);      // Viền sáng xa hơn
     setlinestyle(SOLID_LINE, 1, 1);  // Đặt lại đường viền mỏng
-
-    
 }
 // HÀM VẼ ĐÁM MÂY
 void may() {
