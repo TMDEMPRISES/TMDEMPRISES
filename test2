@@ -187,7 +187,18 @@ void drawUFO(int x, int y, bool glow) {
         // Tạo vòng sáng bên ngoài UFO để tạo hiệu ứng phát sáng
         fillellipse(x, y + 30, 70, 35);
     }
+// Vẽ hiệu ứng phóng lửa hình elip bên dưới UFO
+    int fireHeight = 25; // Chiều cao của hiệu ứng lửa
+    int fireWidth = 10;  // Độ rộng của mỗi ngọn lửa
+    for (int i = -1; i <= 1; i++) {
+        int fireX = x + i * 20;   // Tọa độ x của ngọn lửa
+        int fireY = y + 35;       // Tọa độ y của ngọn lửa
 
+        setcolor(RED);
+        setfillstyle(SOLID_FILL, RED);
+        ellipse(fireX, fireY, 0, 360, fireWidth, fireHeight);  // Vẽ hình elip dọc làm lửa
+        floodfill(fireX, fireY, RED);
+    }
     setcolor(LIGHTGRAY);
     setfillstyle(SOLID_FILL, LIGHTGRAY);
     ellipse(x, y, 0, 360, 60, 20); // Thân chính của UFO
@@ -199,11 +210,11 @@ void drawUFO(int x, int y, bool glow) {
     ellipse(x, y - 20, 0, 360, 30, 15); // Mái vòm của UFO
     floodfill(x, y - 20, WHITE);
 
-    int numLights = 5; 
+     int numLights = 5;  // Số lượng đèn tròn
     for (int i = 0; i < numLights; i++) {
         float angle = (i - (numLights - 1) / 2.0) * (M_PI / (numLights + 1));  // Góc cho mỗi đèn
-        int lightX = x + cos(angle) * 45;  // Tọa độ x của đèn theo đường cong
-        int lightY = y + sin(angle) * 15;  // Tọa độ y của đèn theo đường cong
+        int lightX = x + cos(angle) * 45;  // Tọa độ x của đèn theo đường cong chính giữa
+        int lightY = y + sin(angle) * 10;  // Tọa độ y của đèn theo đường cong chính giữa
 
         setcolor(YELLOW);
         setfillstyle(SOLID_FILL, YELLOW);
@@ -211,21 +222,6 @@ void drawUFO(int x, int y, bool glow) {
         floodfill(lightX, lightY, YELLOW);
     }
 
-    // Vẽ hiệu ứng phóng lửa bên dưới UFO
-    int fireHeight = 40; // Chiều cao của hiệu ứng lửa
-    int fireWidth = 20;  // Độ rộng của mỗi ngọn lửa
-    setcolor(RED);
-    setfillstyle(SOLID_FILL, RED);
-    for (int i = -1; i <= 1; i++) {
-        int fireX1 = x + i * fireWidth;        
-        int fireX2 = x + i * fireWidth + 10;   
-        int fireX3 = x + i * fireWidth - 10;   
-        int fireY1 = y + 20;                   
-        int fireY2 = y + 20 + fireHeight;      
-
-        int firePolygon[] = {fireX1, fireY1, fireX2, fireY2, fireX3, fireY2};
-        fillpoly(3, firePolygon);
-    }
 }
 
 // HÀM VẼ ĐÁM MÂY
