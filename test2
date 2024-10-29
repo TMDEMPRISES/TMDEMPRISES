@@ -202,15 +202,15 @@ void drawUFO(int x, int y, bool glow) {
     // Vẽ ánh sáng phát ra bên dưới UFO
     setcolor(YELLOW);
     setfillstyle(SOLID_FILL, YELLOW);
-    ellipse(x, y + 30, 0, 360, 70, 10); // Vòng ánh sáng
-    floodfill(x, y + 30, YELLOW);
+    ellipse(x, y + 20, 0, 360, 60, 8); // Vòng ánh sáng
+    floodfill(x, y + 20, YELLOW);
 
-    // Thêm một vài ánh sáng nhỏ phát ra từ đáy UFO
-    for (int i = -30; i <= 30; i += 15) {
+    // Thêm các đèn tròn sát thân chính của UFO
+    for (int i = -40; i <= 40; i += 20) {
         setcolor(YELLOW);
         setfillstyle(SOLID_FILL, YELLOW);
-        circle(x + i, y + 40, 5); // Các đèn tròn phát sáng
-        floodfill(x + i, y + 40, YELLOW);
+        circle(x + i, y + 15, 5); // Các đèn tròn sát dưới thân UFO
+        floodfill(x + i, y + 15, YELLOW);
     }
 }
 
