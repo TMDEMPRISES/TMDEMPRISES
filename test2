@@ -199,18 +199,17 @@ void drawUFO(int x, int y, bool glow) {
     ellipse(x, y - 20, 0, 360, 30, 15); // Mái vòm của UFO
     floodfill(x, y - 20, WHITE);
 
-    // Vẽ ánh sáng phát ra bên dưới UFO
-    setcolor(YELLOW);
-    setfillstyle(SOLID_FILL, YELLOW);
-    ellipse(x, y + 20, 0, 360, 60, 8); // Vòng ánh sáng
-    floodfill(x, y + 20, YELLOW);
-
-    // Thêm các đèn tròn sát thân chính của UFO
+    // Vẽ các đèn tròn trên thân của UFO
     for (int i = -40; i <= 40; i += 20) {
         setcolor(YELLOW);
         setfillstyle(SOLID_FILL, YELLOW);
-        circle(x + i, y + 15, 5); // Các đèn tròn sát dưới thân UFO
-        floodfill(x + i, y + 15, YELLOW);
+        circle(x + i, y - 5, 5); // Các đèn tròn trên thân UFO
+        floodfill(x + i, y - 5, YELLOW);
+    }
+    setcolor(YELLOW);
+    setfillstyle(SOLID_FILL, YELLOW);
+    int lightPolygon[] = {x - 30, y + 20, x + 30, y + 20, x + 60, y + 100,x - 60, y + 100 };
+    fillpoly(4, lightPolygon);
     }
 }
 
