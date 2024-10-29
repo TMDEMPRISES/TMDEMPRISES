@@ -188,41 +188,32 @@ void drawUFO(int x, int y, bool glow) {
         fillellipse(x, y + 30, 70, 35);
     }
 
-    setcolor(RED);
-    setfillstyle(SOLID_FILL, RED);
-    fillellipse(x, y - 40, 5, 5); 
-
-    setcolor(LIGHTCYAN);
-    setfillstyle(SOLID_FILL, LIGHTCYAN);
-    fillellipse(x, y - 20, 30, 20);
-
-    int points[] = {x - 50, y, x + 50, y, x + 35, y + 30, x - 35, y + 30};
     setcolor(LIGHTGRAY);
     setfillstyle(SOLID_FILL, LIGHTGRAY);
-    fillpoly(4, points);  // Thân dưới của UFO
+    ellipse(x, y, 0, 360, 60, 20); // Thân chính của UFO
+    floodfill(x, y, LIGHTGRAY);
 
-    setcolor(DARKGRAY);
-    setfillstyle(SOLID_FILL, DARKGRAY);
-    bar(x + 10, y + 5, x + 30, y + 15);  // Chi tiết trên thân
+    // Vẽ mái vòm trên của UFO
+    setcolor(WHITE);
+    setfillstyle(SOLID_FILL, WHITE);
+    ellipse(x, y - 20, 0, 360, 30, 15); // Mái vòm của UFO
+    floodfill(x, y - 20, WHITE);
 
+    // Vẽ ánh sáng phát ra bên dưới UFO
     setcolor(YELLOW);
     setfillstyle(SOLID_FILL, YELLOW);
-    fillellipse(x - 25, y + 40, 10, 10);  // Đèn trái
-    fillellipse(x, y + 40, 10, 10);       // Đèn giữa
-    fillellipse(x + 25, y + 40, 10, 10);  // Đèn phải
+    ellipse(x, y + 30, 0, 360, 70, 10); // Vòng ánh sáng
+    floodfill(x, y + 30, YELLOW);
 
-    setcolor(DARKGRAY);
-    line(x - 30, y + 45, x - 40, y + 55);
-    line(x + 30, y + 45, x + 40, y + 55);
-    line(x - 20, y + 45, x - 20, y + 60);
-    line(x + 20, y + 45, x + 20, y + 60);
-
-    setcolor(CYAN);
-    setlinestyle(SOLID_LINE, 1, 3);  // Đường viền dày
-    arc(x, y + 20, 0, 180, 60);      // Viền sáng dưới thân
-    arc(x, y + 20, 0, 180, 65);      // Viền sáng xa hơn
-    setlinestyle(SOLID_LINE, 1, 1);  // Đặt lại đường viền mỏng
+    // Thêm một vài ánh sáng nhỏ phát ra từ đáy UFO
+    for (int i = -30; i <= 30; i += 15) {
+        setcolor(YELLOW);
+        setfillstyle(SOLID_FILL, YELLOW);
+        circle(x + i, y + 40, 5); // Các đèn tròn phát sáng
+        floodfill(x + i, y + 40, YELLOW);
+    }
 }
+
 // HÀM VẼ ĐÁM MÂY
 void may() {
     setcolor(WHITE);
