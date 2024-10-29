@@ -517,6 +517,7 @@ int main() {
         }
         if (GetAsyncKeyState(VK_UP)) { // Di chuyển lên
             y -= 5;
+            glow != glow;
         }
         if (GetAsyncKeyState(VK_DOWN)) { // Di chuyển xuống
             y += 5;
