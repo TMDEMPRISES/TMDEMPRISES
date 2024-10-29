@@ -179,15 +179,8 @@ void buicay(int x, int y) {
 }
 
 void drawUFO(int x, int y, bool glow) {
-    // Nếu 'glow' = true thì UFO phát sáng
     if (glow) {
-        // Vẽ ánh sáng xung quanh UFO
-        setcolor(YELLOW);
-        setfillstyle(SOLID_FILL, YELLOW);
-        // Tạo vòng sáng bên ngoài UFO để tạo hiệu ứng phát sáng
-        fillellipse(x, y + 30, 70, 35);
-    }
-// Vẽ hiệu ứng phóng lửa hình elip bên dưới UFO
+        // Vẽ hiệu ứng phóng lửa hình elip bên dưới UFO
     int fireHeight = 25; // Chiều cao của hiệu ứng lửa
     int fireWidth = 10;  // Độ rộng của mỗi ngọn lửa
     for (int i = -1; i <= 1; i++) {
@@ -199,6 +192,8 @@ void drawUFO(int x, int y, bool glow) {
         ellipse(fireX, fireY, 0, 360, fireWidth, fireHeight);  // Vẽ hình elip dọc làm lửa
         floodfill(fireX, fireY, RED);
     }
+    }
+
     setcolor(LIGHTGRAY);
     setfillstyle(SOLID_FILL, LIGHTGRAY);
     ellipse(x, y, 0, 360, 60, 20); // Thân chính của UFO
