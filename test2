@@ -212,7 +212,7 @@ void drawUFO(int x, int y, bool glow) {
 
      int numLights = 5;  // Số lượng đèn tròn
     for (int i = 0; i < numLights; i++) {
-        float angle = (i - (numLights - 1) / 2.0) * (M_PI / (numLights + 1)) - M_PI / 2;  
+        float angle = (i - (numLights - 1) / 2.0) * (M_PI / (numLights + 1)) + M_PI / 2; 
         int lightX = x + cos(angle) * 45;  // Tọa độ x của đèn theo đường cong
         int lightY = y + sin(angle) * 10;  // Tọa độ y của đèn theo đường cong
 
@@ -221,6 +221,7 @@ void drawUFO(int x, int y, bool glow) {
         circle(lightX, lightY, 5); // Vẽ đèn tròn
         floodfill(lightX, lightY, YELLOW);
     }
+
 }
 
 // HÀM VẼ ĐÁM MÂY
